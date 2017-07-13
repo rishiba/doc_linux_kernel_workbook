@@ -1,0 +1,56 @@
+[22937.282553] Hello from Hello Module
+[22937.282556] 
+               Sum is           18
+[22937.282559] 
+               Difference is    12
+[22937.282561] 
+               Product is       45
+[22937.282563] 
+               Divison is       5
+[22937.282564] 
+               Mod is           0
+[22937.282566] 
+               Bitwise NOT of 15 Is   -16
+[22937.282567] 
+               Bitwise OR is    15
+[22937.282569] 
+               Bitwise AND is   3
+[22937.282571] 
+               Bitwise XOR Is   12
+[22937.282573] 
+               Logical OR Is    1
+[22937.282574] 
+               Logical AND Is   1
+[22937.282576] 
+               15 is greater than 3
+[22937.282578] 
+               Address of a is ffff88007c463cb4
+[22937.282580] 
+               Value of ptra is 15
+[22937.282581] 
+               Printing i 3
+[22937.282583] 
+               Printing i 4
+[22937.282585] 
+               Printing i 5
+[22937.282586] 
+               Printing i 6
+[22937.282588] 
+               Printing i 7
+[22937.282590] 
+               Printing i 8
+[22937.282591] 
+               Printing i 9
+[22937.282593] 
+               Printing i 10
+[22937.282594] 
+               Printing i 11
+[22937.282596] 
+               Printing i 12
+[22937.282597] 
+               Printing i 13
+[22937.282599] 
+               Printing i 14
+[22937.282601] 
+               Printing i 15
+

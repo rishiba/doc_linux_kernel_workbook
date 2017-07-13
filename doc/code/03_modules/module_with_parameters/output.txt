@@ -1,0 +1,16 @@
+sudo rmmod mymodule
+sudo dmesg -c
+sudo insmod mymodule.ko param1=10 param2=20
+sudo dmesg -c
+[22889.016723] 
+               Bye from Parameter Passing Demo Module
+[22889.033755] 
+               Hello !! from Paramter Passing Demo Module
+[22889.033760] 
+               The sum of the parameters are :30:
+[22889.033763] 
+               Passed Parameters
+[22889.033765] 
+               param1 passed is :10:
+[22889.033768] 
+               param2 passed is :20:

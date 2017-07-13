@@ -1,0 +1,64 @@
+=================
+Chapter Structure
+=================
+
+
+Introduction
+============
+    
+================
+Why this chapter
+================
+
+===================
+What will you learn
+===================
+
+==============================
+Concepts and Keywords involved
+==============================
+
+=============
+Prerequisites
+=============
+
+================
+Chapter Contents
+================
+
+=========
+Exercises
+=========
+
+==========
+References
+==========
+
+
+Chapter Structure - Explanation of each section
+===============================================
+
+* Introduction
+    This section just gives a one paragraph introduction to the chapter.
+    
+* Why this chapter
+    Explains why this chapter is included in the book. Why this chapter is needed? How the concepts explained in the chapter in used? How the features can be used in production environment.
+
+* What will you learn
+    Explains what will the reader learn from the chapter and why is it important to learn.
+
+* Concepts and Keywords involved
+    This just tags the project with the keywords so that the chapter comes up in glossary and Internet searches.
+
+* Prerequisites
+    The list of prerequisites for understanding the chapter. This section will list a section of must-read references required to proceed with the project.
+
+* Chapter Section and Subsections
+    The actual contents of the chapter.
+
+* Exercises
+    This section deals with exercises if any.
+
+* References
+    Optional references section.
+
