@@ -14,8 +14,6 @@
 
 import sys
 import os
-import sphinx_rtd_theme
-import cloud_sptheme as csp
 
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -107,9 +105,12 @@ pygments_style = 'sphinx'
 #html_theme = 'alabaster'
 #html_theme = 'cloud'
 
-import sphinx_rtd_theme
-html_theme = "sphinx_rtd_theme"
-html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+
+if not on_rtd:  # only import and set the theme if we're building docs locally
+    import sphinx_rtd_theme
+    html_theme = 'sphinx_rtd_theme'
+    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
