@@ -43,9 +43,10 @@ New Functions
 
 ``kmalloc()``
 =============
-* kmalloc() is the kernel space version of malloc()
-* call it  **kmalloc(bytes, GFP_KERNEL)**        
-* Read more about it in ``Linux Kernel Develpement, Robert Love``
+
+*   kmalloc() is the kernel space version of malloc()
+*   call it  **kmalloc(bytes, GFP_KERNEL)**
+*   Read more about it in ``Linux Kernel Develpement, Robert Love``
 
 =============================
 A Simple Only Read Proc Entry
@@ -58,17 +59,18 @@ Code
 ====
 
 ``FILE: myproc.c``
-~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
+
 .. literalinclude:: code/06_proc/00/myproc.c
     :language: c
     :linenos:
 
 ``FILE : Makefile``
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
+
 .. literalinclude:: code/06_proc/00/Makefile
     :language: c
     :linenos:
-
 
 =====================================
 Proc Directory with Multiple Entries
@@ -77,20 +79,21 @@ Proc Directory with Multiple Entries
 Introduction
 ============
 
-.. todo::
+.. todo:: Write this section.
 
 Code
 ====
 
 ``FILE: proc.c``
-----------------
+~~~~~~~~~~~~~~~~
 
 .. literalinclude:: code/06_proc/01/myproc.c
     :language: c
     :linenos:
 
 ``FILE : Makefile``
-------------------
+~~~~~~~~~~~~~~~~~~~
+
 .. literalinclude:: code/06_proc/01/Makefile
     :language: c
     :linenos:
@@ -102,20 +105,21 @@ Make a proc entry and based on value written to the file call different function
 Introduction
 ============
 
-.. todo::
+.. todo:: Write this section
 
 Code
 ====
 
 ``FILE : proc.c``
-----------------
+~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: code/06_proc/02/myproc.c
     :language: c
     :linenos:
 
 ``FILE : Makefile``
-------------------
+~~~~~~~~~~~~~~~~~~~~
+
 .. literalinclude:: code/06_proc/02/Makefile
     :language: c
     :linenos:
@@ -128,21 +132,21 @@ Make a proc entry and based on value written to the file call different function
 Introduction
 ============
 
-.. todo::
+.. todo:: write this section
 
 Code
 ====
 
 
 ``FILE : proc.c``
-----------------
+~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: code/06_proc/03/myproc.c
     :language: c
     :linenos:
 
 ``FILE : Makefile``
-------------------
+~~~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: code/06_proc/03/Makefile
     :language: c
@@ -156,7 +160,7 @@ Introduction
 ============
 
 
-.. todo::
+.. todo:: Write this section
 
 
 We can return the number of bytes read :-D
@@ -168,14 +172,14 @@ Code
 ====
 
 ``FILE : proc.c``
-----------------
+~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: code/06_proc/04/myproc.c
     :language: c
     :linenos:
 
 ``FILE : Makefile``
-------------------
+~~~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: code/06_proc/04/Makefile
     :language: c
@@ -200,14 +204,14 @@ Code
 
 
 ``FILE : proc.c``
-----------------
+~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: code/06_proc/04/myproc.c
     :language: c
     :linenos:
 
 ``FILE : Makefile``
-------------------
+~~~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: code/06_proc/04/Makefile
     :language: c

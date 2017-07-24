@@ -10,12 +10,12 @@ BUG(), BUG_ON(), dump_stack(), panic() example
 
 ``file``: proc.c
 ~~~~~~~~~~~~~~~~
-.. literalinclude:: code/bug_on/proc.c
+.. literalinclude:: code/05_bug_reporting/bug_on/proc.c
     :language: c
     :linenos:
 
 ``file``: Makefile
 ~~~~~~~~~~~~~~~~~~
-.. literalinclude:: code/bug_on/Makefile
+.. literalinclude:: code/05_bug_reporting/bug_on/Makefile
     :language: c
     :linenos:

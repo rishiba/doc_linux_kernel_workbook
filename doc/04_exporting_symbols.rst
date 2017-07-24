@@ -6,8 +6,8 @@ EXPORT_SYMBOL
 Introduction
 ============
 
-Genrally the modules will never live alone. We need to divide the code into
-multiple modules for better organization and readlibilty as well as we need to
+Generally the modules will never live alone. We need to divide the code into
+multiple modules for better organization and readability as well as we need to
 use the APIs or functionality which is available in other modules or the
 functions which are made available to us by the Linux Kernel.
 
@@ -18,7 +18,7 @@ modules or the kernel code.
 Why this chapter
 ================
 
-We need to understand how to  
+We need to understand how to
 
 *   For making a function available for others to use.
 *   How to use functions given by other modules.
@@ -47,7 +47,7 @@ Export Symbol
 
 *   ``modprobe`` helps here and loads the modules which is needed by your module.
 
-*   What if there is circular dependancy between the modules?
+*   What if there is circular dependency between the modules?
 
 =============================================
 Module Exporting Some Functions and Variables
@@ -56,7 +56,7 @@ Module Exporting Some Functions and Variables
 Introduction
 ============
 
-*   Here we will write two modules. In one module we will have the functions 
+*   Here we will write two modules. In one module we will have the functions
     which will be exported using the ``EXPORT_SYMBOL()`` whereas the other
     module will just call the functions and use the variables which are exported.
 
@@ -64,14 +64,14 @@ Introduction
     command``. See the ``depends`` field of the output. In ``mymodule1.ko`` you
     will see that it depends on ``mymodule1``.
 
-``FILE: mymodule1.c`` 
+``FILE: mymodule1.c``
 =====================
 
 .. literalinclude:: code/04_exporting_symbols/exporting_symbols/mymodule1.c
     :language: c
     :linenos:
 
-``FILE: mymodule2.c`` 
+``FILE: mymodule2.c``
 =====================
 
 .. literalinclude:: code/04_exporting_symbols/exporting_symbols/mymodule2.c
@@ -95,8 +95,8 @@ Introduction
     license:        GPL v2
     author:         Rishi Agrawal <rishi.b.agrawal@gmail.com
     description:    Module to demonstrate the EXPORT_SYMBOL functionality
-    depends:        
-    vermagic:       4.7.0 SMP mod_unload 
+    depends:
+    vermagic:       4.7.0 SMP mod_unload
 
     $ modinfo mymodule2.ko
     filename:       /home/rishi/mydev/publications/lkw/doc/code/04_exporting_symbols/exporting_symbols/mymodule2.ko
@@ -104,15 +104,15 @@ Introduction
     author:         Rishi Agrawal <rishi.b.agrawal@gmail.com>
     description:    Module to demonstrate the EXPORT_SYMBOL functionality
     depends:        mymodule1    <<<<<<<<<<<<<<<
-    vermagic:       4.7.0 SMP mod_unload 
+    vermagic:       4.7.0 SMP mod_unload
 
 *   Let us try to insert the ``mymodule2.ko`` before the ``mymodule1.ko``. It will give errors.
 
 ::
 
-    $ sudo insmod mymodule2.ko 
+    $ sudo insmod mymodule2.ko
     insmod: ERROR: could not insert module mymodule2.ko: Unknown symbol in module
-    
+
     rishi@rishi-VirtualBox:~/mydev/publications/lkw/doc/code/04_exporting_symbols/exporting_symbols$ dmesg
     [15588.009164] mymodule2: Unknown symbol add_two_numbers (err 0)
     [15588.009171] mymodule2: Unknown symbol GLOBAL_VARIABLE (err 0)
@@ -121,14 +121,14 @@ Introduction
 *   Now insert the ``mymodule1.ko``
 
 ::
-    
-    $ sudo insmod mymodule1.ko 
+
+    $ sudo insmod mymodule1.ko
 
 *   Now insert the ``mymodule2.ko``
 
 ::
-    
-    $ sudo insmod mymodule2.ko 
+
+    $ sudo insmod mymodule2.ko
     [15606.692155] Hello from Export Symbol 1 module.
     [15612.175760] Hello from Hello Module
     [15612.175764] Hello Friend!!!
@@ -144,7 +144,7 @@ Introduction
     [15612.175780] Sum of the numbers 11
     [15612.175782] Value of GLOBAL_VARIABLE 1000
 
-*   ``SUCESSS !!`` You have sucessfully inserted a module which uses functions from another module.
+*   ``SUCESSS !!`` You have successfully inserted a module which uses functions from another module.
 
 ====================
 Removing the modules
@@ -154,14 +154,14 @@ Removing the modules
 
 ::
 
-    $ sudo rmmod mymodule1 
+    $ sudo rmmod mymodule1
     rmmod: ERROR: Module mymodule1 is in use by: mymodule2
 
 *   Check who is using the ``mymodule1``. See the ``Used by`` column in the ``lsmod`` output.
 
 ::
-     
-    $ lsmod 
+
+    $ lsmod
     Module                  Size  Used by
     mymodule2               1056  0
     mymodule1               1324  1 mymodule2
@@ -169,8 +169,8 @@ Removing the modules
 *   We will have to remove the ``mymodule2`` first and ``mymodule1``.
 
 ::
-     
-     $ sudo rmmod mymodule2 
+
+     $ sudo rmmod mymodule2
      $ sudo rmmod mymodule1
 
 ===========
@@ -181,7 +181,7 @@ Other files
 
 ::
 
-    $ cat modules.order 
+    $ cat modules.order
     kernel//home/rishi/mydev/publications/lkw/doc/code/04_exporting_symbols/exporting_symbols/mymodule1.ko
     kernel//home/rishi/mydev/publications/lkw/doc/code/04_exporting_symbols/exporting_symbols/mymodule2.ko
 
@@ -189,7 +189,7 @@ Other files
 
 ::
 
-    $ cat Module.symvers 
+    $ cat Module.symvers
     0x00000000  print_hello /home/rishi/mydev/publications/lkw/doc/code/04_exporting_symbols/exporting_symbols/mymodule1    EXPORT_SYMBOL
     0x00000000  add_two_numbers /home/rishi/mydev/publications/lkw/doc/code/04_exporting_symbols/exporting_symbols/mymodule1    EXPORT_SYMBOL
     0x00000000  GLOBAL_VARIABLE /home/rishi/mydev/publications/lkw/doc/code/04_exporting_symbols/exporting_symbols/mymodule1    EXPORT_SYMBOL
@@ -201,15 +201,15 @@ See the exported symbols
 
 *   Module1 exports the symbols.
 
-*   The exported symbols and other functions in the kernel can be seen in the ``/proc/kallsyms`` file.  Its is a huge file. 
+*   The exported symbols and other functions in the kernel can be seen in the ``/proc/kallsyms`` file.  Its is a huge file.
 
-*   Let us see the difference in the file after inserting the ``mymodule1.ko``. 
+*   Let us see the difference in the file after inserting the ``mymodule1.ko``.
 
-*   That file clearly that the functions ``print_hello()`` and others are from ``mymodule1``. 
+*   That file clearly that the functions ``print_hello()`` and others are from ``mymodule1``.
 
 *   The UpperCase ``T`` says that the functions are exported (available for others to use) while a lowercase says its not ``exported``.
 
-*   Run the following commands to make two files with the list of synbols.
+*   Run the following commands to make two files with the list of symbols.
 
     ``cat /proc/kallsyms > /tmp/1``
 
@@ -225,7 +225,7 @@ See the exported symbols
 
 ::
 
-    diff /tmp/1 /tmp/2 
+    diff /tmp/1 /tmp/2
     41353a41354,41357
     > 0000000000000000 t my_exit    [mymodule1]
     > 0000000000000000 t cleanup_module [mymodule1]
@@ -237,27 +237,27 @@ See the exported symbols
 Tool modprobe
 =============
 
-*   Modprobe understands in which order the modules are to be loaded. 
+*   ``modprobe`` understands in which order the modules are to be loaded.
 
 *   First remove the modules.
 
-*   Run the command ``modprobe module2`` loads both the module. 
+*   Run the command ``modprobe module2`` loads both the module.
 
 .. todo:: Write section on modprobe
-       
+
 ::
 
     $ sudo modprobe mymodule2
     modprobe: FATAL: Module mymodule2 not found in directory /lib/modules/4.7.0
-    
+
     $ sudo modprobe mymodule2.ko
     modprobe: FATAL: Module mymodule2.ko not found in directory /lib/modules/4.7.0
-    
+
     $ sudo modprobe -C . mymodule2.ko
     modprobe: FATAL: Module mymodule2.ko not found in directory /lib/modules/4.7.0
 
     $ man modprobe
-    
+
     $ sudo modprobe -d . mymodule2.ko
     modprobe: ERROR: ../libkmod/libkmod.c:586 kmod_search_moddep() could not open moddep file '/home/rishi/mydev/publications/lkw/doc/code/04_exporting_symbols/exporting_symbols/./lib/modules/4.7.0/modules.dep.bin'
     modprobe: FATAL: Module mymodule2.ko not found in directory /home/rishi/mydev/publications/lkw/doc/code/04_exporting_symbols/exporting_symbols/./lib/modules/4.7.0
@@ -269,8 +269,8 @@ Tool - depmod
 
 .. todo:: Write this section on depmod.
 
-* **DONT RUN IT** Depmod is smart enough to find the dependancies and write to a file - don't run it as it will overwrite the original file. First take backup of the file.
-    ``depmod ABSOLUTE_PATH_OF_THE_MODULE1 ABSOLUTE_PATH_OF_THE_MODULE2`` 
+* **DONT RUN IT** ``depmod`` is smart enough to find the dependencies and write to a file - don't run it as it will overwrite the original file. First take backup of the file.
+    ``depmod ABSOLUTE_PATH_OF_THE_MODULE1 ABSOLUTE_PATH_OF_THE_MODULE2``
     see the file ``/modules/3.2.0-23-generic/modules.dep``
 
 
@@ -330,16 +330,16 @@ String related functions available in kernel
     0000000000000000 T strlen_user
     0000000000000000 T strict_strtoul_scaled
 
-*   The count of exported functions is 
+*   The count of exported functions is
 
 ::
 
-    cat /proc/kallsyms | grep "T " | wc -l 
+    cat /proc/kallsyms | grep "T " | wc -l
     18388
 
 *   Let us now see how can we make use of one of the string functions that is ``strcat()``. In the following module we will just concatenate two strings and will print the output.
 
-``FILE: mystring.c`` 
+``FILE: mystring.c``
 =====================
 
 .. literalinclude:: code/04_exporting_symbols/strings/mystring.c

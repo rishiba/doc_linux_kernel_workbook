@@ -41,7 +41,7 @@ Let us write a small application.
 
 The application will show the kernel's linked list in a graphical way. How can we do it.
 
-What we will do 
+What we will do
 
 1. We will implement the kernel linked list.
 2. We will give a  proc interface to user. When the user write's ``add [int]`` to the file we will add it to the linked list.

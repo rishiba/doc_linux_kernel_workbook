@@ -16,15 +16,15 @@ This chapter will give you your first hands on with Linux Kernel - thus
 enabling you understand some fundamental concepts around it.
 
 You compile the kernel - make changes to the kernel right in the first chapter.
-So your exicting journey with Linux kernel begins.
+So your exciting journey with Linux kernel begins.
 
 What will you learn
 ===================
 
-You will learn 
+You will learn
 
 *   How to download a Linux kernel.
-*   How to configure the Linux kernel in differnent ways.
+*   How to configure the Linux kernel in different ways.
 *   How to see the effects of the configuration changes you did.
 *   Compile a Linux kernel.
 *   Package a compiled kernel.
@@ -44,7 +44,7 @@ Linux Kernel
 *   This is simple code written in ``C``.
 *   This is a **LARGE** ``C`` program.
 *   Code looks difficult to understand because of the LARGENESS of the system and lack of understanding of the operating system concepts.
-*   You have to be little more careful while coding as small mistakes can cause the whole system to crash. Debugging these can be diffcult at times.
+*   You have to be little more careful while coding as small mistakes can cause the whole system to crash. Debugging these can be difficult at times.
 
 ==================
 Kernel Compilation
@@ -71,7 +71,7 @@ Compiling a Kernel - Steps
 * :command:`make gconfig` - gives a GTK based configuration menu. (We will not use this in this book.)
 * :command:`make menuconfig` - gives a ncurses based configuration menu.
 * :command:`make modules` - makes the modules.
-* :command:`make modules_install` - installs the modules to the required loaction usually ``/lib/modules/KERNEL-VERSION/kernel``.
+* :command:`make modules_install` - installs the modules to the required location usually ``/lib/modules/KERNEL-VERSION/kernel``.
 * :command:`make install` - installs the kernel in the required location usually ``/boot/``, makes the initial ramfs sets up the boot loader, you are now ready to reboot your system.
 
 Hands-On Compling a Kernel
@@ -81,7 +81,7 @@ Hands-On Compling a Kernel
 
 ::
 
-    rishi@rishi-VirtualBox:~$ uname -a 
+    rishi@rishi-VirtualBox:~$ uname -a
     Linux rishi-VirtualBox 4.4.0-24-generic #43-Ubuntu SMP Wed Jun 8 19:27:37 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
 
 
@@ -89,7 +89,7 @@ Hands-On Compling a Kernel
 
 ::
 
-    wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.7.tar.xz 
+    wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.7.tar.xz
     --2016-07-28 08:38:14--  https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.7.tar.xz
     Resolving cdn.kernel.org (cdn.kernel.org)... 151.101.8.69
     Connecting to cdn.kernel.org (cdn.kernel.org)|151.101.8.69|:443... connected.
@@ -98,20 +98,20 @@ Hands-On Compling a Kernel
     Saving to: ‘linux-4.7.tar.xz’
 
     100%[================================================================================>]
-    9,04,12,100  225KB/s   in 4m 23s 
+    9,04,12,100  225KB/s   in 4m 23s
 
     2016-07-28 08:42:39 (336 KB/s) - ‘linux-4.7.tar.xz’ saved [90412100/90412100]
 
 *   Copy the kernel to your virtual machine. Here replace the IP with your machine's IP. You can directly download the kernel in your virtual machine as well.
 
 ::
-    
-    [08:42 - ] -------- /home/rishi/code  
+
+    [08:42 - ] -------- /home/rishi/code
     [rishi-office 7] > scp linux-4.7.tar.xz rishi@192.168.0.106:
     linux-4.7.tar.xz
-    100%   86MB  86.2MB/s   00:01    
-    [08:47 - ] -------- /home/rishi/code  
-    [rishi-office 8] > 
+    100%   86MB  86.2MB/s   00:01
+    [08:47 - ] -------- /home/rishi/code
+    [rishi-office 8] >
 
 *   Untar the kernel
 
@@ -122,22 +122,22 @@ Hands-On Compling a Kernel
 *   This will give you a folder.
 
 ::
-    
+
     $ ls
     linux-4.7  linux-4.7.tar.xz
 
 *  This folder has thousands of files. Lets do a ``find`` and count the number of files.
 
 ::
-    
-    rishi@rishi-VirtualBox:~/lkw$ find linux-4.7/| wc -l 
+
+    rishi@rishi-VirtualBox:~/lkw$ find linux-4.7/| wc -l
     58057
 
 *   This folder has a lot of folders. See the following tree command.
 
 ::
 
-    $ tree linux-4.7  -L 1 -f 
+    $ tree linux-4.7  -L 1 -f
     linux-4.7
     |__ linux-4.7/arch
     |__ linux-4.7/block
@@ -174,14 +174,14 @@ Hands-On Compling a Kernel
 
 ::
 
-    $ wc -l  Makefile 
+    $ wc -l  Makefile
     1669 Makefile
 
 *   We will now do the steps mentioned above. Right now the folder has no ``.config`` file. When we configure the kernel for compilation the file get created. The ``.config`` file keep the configuration for the kernel to be built. Whatever configuration changes you do while configuring the kernel, it gets saved in this file.
 
 ::
-    
-    $ ls .config 
+
+    $ ls .config
     ls: cannot access '.config': No such file or directory
 
 *   Here is a small snippet of the configuration file which we will generate in sometime.
@@ -199,26 +199,26 @@ Hands-On Compling a Kernel
     CONFIG_ARCH_HAS_SG_CHAIN=y
     CONFIG_ARCH_HAS_PMEM_API=y
     CONFIG_ARCH_HAS_MMIO_FLUSH=y
-    
+
 
 *   ``make defconfig`` - makes the default configuration for your architecture, the configuration file is present in ``arch/ARCHITECTURE/configs/``.
 
 ::
 
-    $ make defconfig 
+    $ make defconfig
     *** Default configuration is based on 'x86_64_defconfig'
     #
     # configuration written to .config
     #
-    
-    rishi@rishi-VirtualBox:~/lkw/linux-4.7$ ls .config 
+
+    rishi@rishi-VirtualBox:~/lkw/linux-4.7$ ls .config
     .config
 
-*   The config file is very long. See this.
+*   The ``.config`` file is very long. See this.
 
 ::
 
-    $ wc -l .config 
+    $ wc -l .config
     4044 .config
 
 
@@ -229,7 +229,7 @@ Hands-On Compling a Kernel
 
 ::
 
-    $ make oldconfig 
+    $ make oldconfig
     scripts/kconfig/conf  --oldconfig Kconfig
     #
     # using defaults found in /boot/config-4.4.0-24-generic
@@ -237,7 +237,7 @@ Hands-On Compling a Kernel
     /boot/config-4.4.0-24-generic:1631:warning: symbol value 'm' invalid
         for RXKAD
 
-    /boot/config-4.4.0-24-generic:3589:warning: symbol value 'm' invalid 
+    /boot/config-4.4.0-24-generic:3589:warning: symbol value 'm' invalid
         for SERIAL_8250_FINTEK
     *
     * Restart config...
@@ -276,7 +276,7 @@ Hands-On Compling a Kernel
     Kernel .config support (IKCONFIG) [N/m/y/?] n
     Kernel log buffer size (16 => 64KB, 17 => 128KB) (LOG_BUF_SHIFT) [18] 18
     CPU kernel log buffer size contribution (13 => 8 KB, 17 => 128KB) (LOG_CPU_MAX_BUF_SHIFT) [12] 12
-    Temporary per-CPU NMI log buffer size (12 => 4KB, 13 => 8KB) (NMI_LOG_BUF_SHIFT) [13] (NEW) 
+    Temporary per-CPU NMI log buffer size (12 => 4KB, 13 => 8KB) (NMI_LOG_BUF_SHIFT) [13] (NEW)
 
     -----------SNIPPED------------
     #
@@ -329,7 +329,7 @@ Hands-On Compling a Kernel
 
 ::
 
-    rishi@rishi-VirtualBox:~/lkw/linux-4.7$ make gconfig 
+    rishi@rishi-VirtualBox:~/lkw/linux-4.7$ make gconfig
     *
     * Unable to find the GTK+ installation. Please make sure that
     * the GTK+ 2.0 development package is correctly installed...
@@ -339,13 +339,13 @@ Hands-On Compling a Kernel
     'scripts/kconfig/gconf.o'.  Stop.
     Makefile:544: recipe for target 'gconfig' failed
     make: *** [gconfig] Error 2
-    
+
 
 * ``make menuconfig`` - gives a ncurses based configuration menu. We will use this for configuring our new kernel. **This will initially fail as there is not ncurses installed.**
 
 ::
 
-    $ make menuconfig 
+    $ make menuconfig
       HOSTCC  scripts/kconfig/mconf.o
       In file included from scripts/kconfig/mconf.c:23:0:
       scripts/kconfig/lxdialog/dialog.h:38:20: fatal error: curses.h: No such file or directory
@@ -360,9 +360,9 @@ Hands-On Compling a Kernel
 ::
 
     $ sudo apt-get install ncurses-dev
-    [sudo] password for rishi: 
+    [sudo] password for rishi:
     Reading package lists... Done
-    Building dependency tree       
+    Building dependency tree
     Reading state information... Done
     Note, selecting 'libncurses5-dev' instead of 'ncurses-dev'
     The following additional packages will be installed:
@@ -377,7 +377,7 @@ Hands-On Compling a Kernel
     Do you want to continue? [Y/n] y
     Get:1 http://in.archive.ubuntu.com/ubuntu xenial/main amd64 libtinfo-dev amd64 6.0+20160213-1ubuntu1 [77.4 kB]
     Get:2 http://in.archive.ubuntu.com/ubuntu xenial/main amd64 libncurses5-dev amd64 6.0+20160213-1ubuntu1 [175 kB]
-    Fetched 252 kB in 0s (255 kB/s)          
+    Fetched 252 kB in 0s (255 kB/s)
     Selecting previously unselected package libtinfo-dev:amd64.
     (Reading database ... 209625 files and directories currently installed.)
     Preparing to unpack .../libtinfo-dev_6.0+20160213-1ubuntu1_amd64.deb ...
@@ -388,13 +388,13 @@ Hands-On Compling a Kernel
     Processing triggers for man-db (2.7.5-1) ...
     Setting up libtinfo-dev:amd64 (6.0+20160213-1ubuntu1) ...
     Setting up libncurses5-dev:amd64 (6.0+20160213-1ubuntu1) ...
-    rishi@rishi-VirtualBox:~/lkw/linux-4.7$ 
+    rishi@rishi-VirtualBox:~/lkw/linux-4.7$
 
 *   Now when we run ``make menuconfig`` we will get the following on terminal and a ncurses based screen will open.
 
 ::
 
-    $ make menuconfig 
+    $ make menuconfig
     HOSTCC  scripts/kconfig/mconf.o
     HOSTCC  scripts/kconfig/zconf.tab.o
     HOSTCC  scripts/kconfig/lxdialog/checklist.o
@@ -406,11 +406,11 @@ Hands-On Compling a Kernel
     HOSTLD  scripts/kconfig/mconf
     scripts/kconfig/mconf  Kconfig
 
-.. image:: images/02_kernel_compilation/01_make_menuconfig.png 
+.. image:: images/02_kernel_compilation/01_make_menuconfig.png
 
-*   We will now configure our kernel. 
+*   We will now configure our kernel.
 
-*   We will add EXT2 and EXT3 as kernel modules. We will then compare the default config file and the
+*   We will add ``EXT2`` and ``EXT3`` as kernel modules. We will then compare the default config file and the
     currently generated config file to see the effect of the changes. We will also remove the VFAT
     support and add the NTFS support to the kernel image directly. There is no particular reason for
     doing all this. All this is intended to teach you how the configuration of kernel works and what are
@@ -419,15 +419,15 @@ Hands-On Compling a Kernel
 We will now do some configuration changes to the new kernel which we will just compile and
 configure.
 
-* Goto - File systems -> 
+* Goto - ``File systems`` ->
    mark ``Ext2`` as module i.e. ``M``  use spacebar to toggle between the possible values
    mark ``Ext3`` as a built into images i.e. ``*``
 
 .. image:: images/02_kernel_compilation/02_ext2_ext3.png
 
-* Goto - File Systems -> DOS/NT Filesystem 
-      remove VFAT support i.e. ``BLANK``
-      add NTFS module support i.e. ``M``
+* Goto - ``File Systems`` -> ``DOS/NT Filesystem``
+      remove ``VFAT`` support i.e. ``BLANK``
+      add ``NTFS`` module support i.e. ``M``
 
 .. image:: images/02_kernel_compilation/03_ntfs_fat.png
 
@@ -442,7 +442,7 @@ configure.
 
 ::
 
-    $ diff -y /boot/config-4.4.0-24-generic .config | grep -a "EXT2\|EXT3\|VFAT\|NTFS" 
+    $ diff -y /boot/config-4.4.0-24-generic .config | grep -a "EXT2\|EXT3\|VFAT\|NTFS"
 
     # CONFIG_EXT2_FS is not set                               | CONFIG_EXT2_FS=m
     # CONFIG_EXT3_FS is not set                               | # CONFIG_EXT2_FS_XATTR is not set
@@ -468,10 +468,10 @@ configure.
     # CONFIG_EXT3_FS is not set                   <
     CONFIG_EXT4_USE_FOR_EXT2=y                    <
     CONFIG_VFAT_FS=y                        CONFIG_VFAT_FS=y
-    # CONFIG_NTFS_FS is not set         
+    # CONFIG_NTFS_FS is not set
 
 
-*   So we have now configured the kernel. Mostly we have changed some of the file system related settings and not made much changes. We will now start with the compilation.    
+*   So we have now configured the kernel. Mostly we have changed some of the file system related settings and not made much changes. We will now start with the compilation.
 
 *   ``make -j 4`` - this will start the compilation of the linux kernel. ``-j`` option runs the ``make`` in a multithreaded fashion. ``4`` here stands for the number of threads. For selecting the number of threads you can see the number of cores in your virtual machine. The file ``/proc/cpuinfo`` has the information about cpus. Generally its a good idea to have 2 threads per cpu. i.e for a 2 cpu machine have 4 threads. You can keep more threads per cpu.
 
@@ -479,7 +479,7 @@ configure.
 
 ::
 
-    $ make -j 4 
+    $ make -j 4
 
     scripts/kconfig/conf  --silentoldconfig Kconfig
       SYSHDR  arch/x86/entry/syscalls/../../include/generated/asm/unistd_32_ia32.h
@@ -488,7 +488,7 @@ configure.
       SYSHDR  arch/x86/entry/syscalls/../../include/generated/asm/unistd_64_x32.h
 
       >>>>>>>> SNIPPED <<<<<<<<<<<<<
-      
+
       HOSTCC  scripts/selinux/genheaders/genheaders
       HOSTCC  scripts/selinux/mdp/mdp
       HOSTCC  scripts/kallsyms
@@ -501,9 +501,9 @@ configure.
 
 
     scripts/sign-file.c:25:30: fatal error: openssl/opensslv.h: No such file or directory
-    
-    
-    
+
+
+
     compilation terminated.
     scripts/Makefile.host:91: recipe for target 'scripts/sign-file' failed
     make[1]: *** [scripts/sign-file] Error 1
@@ -517,12 +517,12 @@ configure.
 *   I started with ``make -j 4`` and saw that the processor is still underutilised. Hence I started the 16 threads with ``time`` command to see the time taken.
 
 ::
-    
+
     $ time make -j 16
 
-* ``make modules`` - compiles the modules - this step is not required. 
-*  ``make modules_installs`` - installs (copies) the modules to the required loaction usually ``/lib/modules/KERNEL-VERSION/kernel``.
-*  ``make install`` - installs the kernel in the required location usually ``/boot/``, makes the initial ramfs sets up the boot loader, you are now ready to reboot your system.
+*   ``make modules`` - compiles the modules - this step is not required.
+*   ``make modules_installs`` - installs (copies) the modules to the required location usually ``/lib/modules/KERNEL-VERSION/kernel``.
+*   ``make install`` - installs the kernel in the required location usually ``/boot/``, makes the initial ramfs sets up the boot loader, you are now ready to reboot your system.
 
 *   If everything goes fine then your kernel will install properly.
 
@@ -545,7 +545,7 @@ BootLoader
     GRUB_DEFAULT=-1
     GRUB_HIDDEN_TIMEOUT=
     GRUB_HIDDEN_TIMEOUT_QUIET=true
-    GRUB_TIMEOUT=60 
+    GRUB_TIMEOUT=60
     GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
 
 
@@ -578,7 +578,7 @@ Reference for this http://askubuntu.com/questions/532238/how-do-i-customize-the-
 
 ::
 
-    $ uname -a 
+    $ uname -a
     Linux rishi-VirtualBox 4.7.0 #1 SMP Sat Aug 20 09:41:02 IST 2016 x86_64 x86_64 x86_64 GNU/Linux
 
 *   It shows that we are into our new kernel. Congratulations !!!
@@ -625,7 +625,7 @@ Module Loading and Unloading
 
 ::
 
-    rishi@rishi-VirtualBox:~$ cat /proc/filesystems 
+    rishi@rishi-VirtualBox:~$ cat /proc/filesystems
     nodev   sysfs
     nodev   rootfs
     nodev   ramfs
@@ -655,26 +655,26 @@ Module Loading and Unloading
 
 .. note:: We will use some commands like ``modprobe`` ``insmod`` ``lsmod`` ``rmmod``. Do not worry if you are unable to understand these. In the next chapters I will detail them.
 
-*   Let us load the ``ext2`` file system in the kernel and see what happens. We can do this by the ``modprobe`` command. ``modprobe`` is an intelligent tool which knows the exact locations of the modules and it can load them from there. We should do it as ``sudo`` as we need the ``root`` priviledges. The other tool to insert modules is ``insmod``.
+*   Let us load the ``ext2`` file system in the kernel and see what happens. We can do this by the ``modprobe`` command. ``modprobe`` is an intelligent tool which knows the exact locations of the modules and it can load them from there. We should do it as ``sudo`` as we need the ``root`` privileges. The other tool to insert modules is ``insmod``.
 
 
 ::
-    
+
     rishi@rishi-VirtualBox:~$ sudo modprobe ext2
-    [sudo] password for rishi: 
+    [sudo] password for rishi:
 
 *   We can check if the module got loaded by running the ``lsmod`` command. The second column of the ``lsmod`` command is the usage count. Right now there is no ext2 filesystem which is mounted hence the usage count is ``0``.
 
 ::
-    
-    rishi@rishi-VirtualBox:~$ lsmod | grep ext2 
+
+    rishi@rishi-VirtualBox:~$ lsmod | grep ext2
     ext2                   50017  0
 
-*   We should now be supporing the ``ext2`` file system as well. See the last line. You can see the ``ext2`` file system being supported.
+*   We should now be supporting the ``ext2`` file system as well. See the last line. You can see the ``ext2`` file system being supported.
 
 ::
 
-    rishi@rishi-VirtualBox:~$ cat /proc/filesystems 
+    rishi@rishi-VirtualBox:~$ cat /proc/filesystems
     nodev   sysfs
     nodev   rootfs
     nodev   ramfs
@@ -707,7 +707,7 @@ Module Loading and Unloading
 
 ::
 
-    rishi@rishi-VirtualBox:~$ sudo rmmod ext2 
+    rishi@rishi-VirtualBox:~$ sudo rmmod ext2
 
 
 *   Now there will be no entry in ``lsmod`` for the ``ext2`` file system.
@@ -722,7 +722,7 @@ Automatic Loading of modules when required.
 
 ::
 
-    rishi@rishi-VirtualBox:~$ mount 
+    rishi@rishi-VirtualBox:~$ mount
     sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
     proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
     udev on /dev type devtmpfs (rw,nosuid,relatime,size=1042368k,nr_inodes=260592,mode=755)
@@ -759,24 +759,24 @@ Automatic Loading of modules when required.
 *   Let us make a file system now.
 
 ::
-    
-    rishi@rishi-VirtualBox:~$ mkfs.ext2 100mb 
+
+    rishi@rishi-VirtualBox:~$ mkfs.ext2 100mb
     mke2fs 1.42.13 (17-May-2015)
-    Discarding device blocks: done                            
+    Discarding device blocks: done
     Creating filesystem with 102400 1k blocks and 25688 inodes
     Filesystem UUID: acc67a5c-572f-4e83-b0cc-f9a53cbb9f0f
-    Superblock backups stored on blocks: 
+    Superblock backups stored on blocks:
         8193, 24577, 40961, 57345, 73729
 
-    Allocating group tables: done                            
-    Writing inode tables: done                            
-    Writing superblocks and filesystem accounting information: done 
+    Allocating group tables: done
+    Writing inode tables: done
+    Writing superblocks and filesystem accounting information: done
 
-*   Associate it with a ``loop`` device. Loop devices are fake devices which allow regular files to be used as block devices. Read about them in ``man losetup``. 
+*   Associate it with a ``loop`` device. Loop devices are fake devices which allow regular files to be used as block devices. Read about them in ``man losetup``.
 
 ::
 
-    rishi@rishi-VirtualBox:~$ sudo losetup /dev/loop0 100mb 
+    rishi@rishi-VirtualBox:~$ sudo losetup /dev/loop0 100mb
 
 
 
@@ -786,13 +786,13 @@ Automatic Loading of modules when required.
 
 ::
 
-    rishi@rishi-VirtualBox:~$ sudo mount /dev/loop0 /mnt 
+    rishi@rishi-VirtualBox:~$ sudo mount /dev/loop0 /mnt
 
 *   Now the state of ``ext2`` module. The usage count is 1 here.
 
 ::
-    
-    rishi@rishi-VirtualBox:~$ lsmod | grep ext2 
+
+    rishi@rishi-VirtualBox:~$ lsmod | grep ext2
     ext2                   50017  1
 
 *   Status of ``mount`` command.
@@ -806,8 +806,8 @@ Automatic Loading of modules when required.
 *   Status of ``/proc/filesystems``
 
 ::
-    
-    rishi@rishi-VirtualBox:~$ cat /proc/filesystems 
+
+    rishi@rishi-VirtualBox:~$ cat /proc/filesystems
     nodev   sysfs
     nodev   rootfs
     nodev   ramfs
@@ -840,13 +840,13 @@ Automatic Loading of modules when required.
 
 ::
 
-    rishi@rishi-VirtualBox:~$ sudo umount /mnt 
+    rishi@rishi-VirtualBox:~$ sudo umount /mnt
 
 
 *   The module does not get unloaded by itself. Its usage count gets to 0 though.
 
 ::
-    
+
     rishi@rishi-VirtualBox:~$ lsmod | grep ext2
     ext2                   50017  0
 
@@ -854,14 +854,14 @@ Automatic Loading of modules when required.
 *   We can now remove it ourselves.
 
 ::
-    
+
     rishi@rishi-VirtualBox:~$ sudo rmmod  ext2
 
 *   We can check the supported file systems again. There is not ``ext2``
 
 ::
 
-    rishi@rishi-VirtualBox:~$ cat /proc/filesystems 
+    rishi@rishi-VirtualBox:~$ cat /proc/filesystems
     nodev   sysfs
     nodev   rootfs
     nodev   ramfs
@@ -888,12 +888,12 @@ Automatic Loading of modules when required.
     nodev   autofs
     nodev   mqueue
     nodev   selinuxfs
-    
+
 =========
 Exercises
 =========
 
-*   Build the XFS file system in the kernel. See the effect in the file ``/proc/filesystems``
+*   Build the ``XFS`` file system in the kernel. See the effect in the file ``/proc/filesystems``
 *   Build the ``reiserfs`` file system as module. See the effect in the file ``/proc/filesystems``. See the new ``.config`` file which got generated.
 *   Make some files and associate them with different loop devices. Mount them, do some operations.
 

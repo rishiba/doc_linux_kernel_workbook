@@ -4,7 +4,6 @@
 # File to compile and open the html version of the document.
 #
 
-#make --makefile=testFiles/test.Makefile html
 make clean
-sphinx-build -b html -d _build/doctrees   . _build/html -D master_doc=wip.index
+make html
 google-chrome _build/html/index.html &

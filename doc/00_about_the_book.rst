@@ -24,10 +24,9 @@ People (even I) generally suggest them the following books:
 
 For the learners who can't wait to get into code - I have written this small book.
 
-This book is updated with the latest Ubuntu Desktop LTS releases. That means
-that the book have the code which will meet the latest Ubuntu Desktop Releases.
+This book uses Ubuntu Server LTS releases.
 
-This document will deal with the folowing topics.
+This book will deal with the folowing topics.
     
 * Compilation of Kernel
 * Code Walkthrough using ``cscope`` and ``ctags``

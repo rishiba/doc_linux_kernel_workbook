@@ -1,5 +1,5 @@
 
-obj-m +=  proc.o
+obj-m +=  mybugon.o
 
 export KROOT=/lib/modules/$(shell uname -r)/build
 #export KROOT=/lib/modules/$(uname)3.2.0-23-generic/build

@@ -10,7 +10,7 @@ We generally do not make changes directly to the core kernel code. We mostly
 write small modules to be added to the kernel. This way we can separate out our
 changes from the mainline kernel.
 
-If you see - the file system are thus modules only, as not all the linux
+If you see - the file system are thus modules only, as not all the Linux
 installations do not need all the file systems and the user can load them on
 demand.
 
@@ -30,7 +30,7 @@ The more time you spend here - the lesser time you will spend later.
 What will you learn
 ===================
 
-We will learn 
+We will learn
 
 * How to write a basic kernel module.
 * How to write functions and make it available to other modules. Sort of library.
@@ -77,7 +77,7 @@ we will use to get the modules working.
 ==========
 
 *   ``insmod`` - insert module.
-    
+
 
 ``modprobe``
 ============
@@ -268,7 +268,7 @@ calculator program.
 Code
 ====
 
-``FILE: mymodule_with_parameters.c`` 
+``FILE: mymodule_with_parameters.c``
 -------------------------------------
 
 .. literalinclude:: code/03_modules/module_with_parameters/mymodule.c
@@ -279,7 +279,7 @@ Code
 ------------------
 
 .. literalinclude:: code/03_modules/module_with_parameters/Makefile
-    :language: make 
+    :language: make
     :linenos:
 
 
@@ -302,7 +302,7 @@ Code
 ====
 
 
-``FILE: mymodule_with_parameters.c`` 
+``FILE: mymodule_with_parameters.c``
 -------------------------------------
 
 .. literalinclude:: code/03_modules/module_string_array_parameters/mymodule_with_parameters.c
@@ -313,7 +313,7 @@ Code
 ------------------
 
 .. literalinclude:: code/03_modules/module_string_array_parameters/Makefile
-    :language: make 
+    :language: make
     :linenos:
 
 ==========================
