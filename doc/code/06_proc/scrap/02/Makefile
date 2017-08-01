@@ -15,7 +15,7 @@ kernel_clean:
 clean: kernel_clean
 	rm -rf   Module.symvers modules.order
 
-insert: modules 
+insert: modules remove 
 	sudo insmod myproc.ko
 
 remove:

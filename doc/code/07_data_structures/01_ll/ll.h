@@ -30,9 +30,9 @@ void proc_cleanup(void);
 int ll_proc_init (void);
 int configure_proc_entry(void);
 
-int my_proc_read(char *page, char **start, off_t off, int count, int *eof, void *data); 
 
-int my_proc_write(struct file *file, const char __user *buffer, unsigned long count, void *data);
+ssize_t my_proc_read (struct file *filp,char *buf,size_t count,loff_t *offp ); 
+ssize_t my_proc_write(struct file *filp, const char __user * buffer, size_t count, loff_t *pos);
 
 int configure_proc_entry(void);
 int delete_node (int);

@@ -1,5 +1,9 @@
-MYPROC=myproc
-obj-m += $(MYPROC).o
+
+obj-m +=  ll_module.o
+obj-m +=  ll_proc.o
+obj-m +=  ll.o
+obj-m += ll_driver.o
+ll_driver-objs := ll_module.o ll_proc.o ll.o
 
 export KROOT=/lib/modules/$(shell uname -r)/build
 #export KROOT=/lib/modules/$(uname)3.2.0-23-generic/build
@@ -21,9 +25,9 @@ clean: kernel_clean
 
 insert: modules 
 	sudo dmesg -c
-	sudo insmod myproc.ko
+	sudo insmod ll_driver.ko
 
 remove: clean
-	sudo rmmod myproc
+	sudo rmmod ll_driver.ko
 
         

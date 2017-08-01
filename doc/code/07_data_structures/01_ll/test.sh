@@ -1,5 +1,5 @@
 #! /bin/sh
-PROC_ENTRY="/proc/driver/mmmod"
+PROC_ENTRY="/proc/linked_list"
 
 
 # Check if the file is present or not.

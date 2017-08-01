@@ -1,16 +1,13 @@
-
-obj-m +=  mymodule.o
-obj-m +=  myproc.o
-obj-m +=  ll.o
-obj-m += Final.o
-Final-objs := mymodule.o myproc.o ll.o
+MYPROC=mybugondriver
+obj-m += $(MYPROC).o
 
 export KROOT=/lib/modules/$(shell uname -r)/build
 #export KROOT=/lib/modules/$(uname)3.2.0-23-generic/build
 
 allofit:  modules
 
-modules:
+modules: clean
+
 	@$(MAKE) -C $(KROOT) M=$(PWD) modules
 
 modules_install:
@@ -21,3 +18,12 @@ kernel_clean:
 
 clean: kernel_clean
 	rm -rf   Module.symvers modules.order
+
+insert: modules remove 
+	sudo dmesg -c
+	sudo insmod myproc.ko
+
+remove: clean
+	sudo rmmod myproc
+
+        

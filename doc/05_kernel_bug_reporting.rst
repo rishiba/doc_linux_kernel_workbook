@@ -8,14 +8,12 @@ Kernel's Bug Reporting
 BUG(), BUG_ON(), dump_stack(), panic() example
 ----------------------------------------------
 
-``file``: proc.c
-~~~~~~~~~~~~~~~~
-.. literalinclude:: code/05_bug_reporting/bug_on/proc.c
+.. literalinclude:: code/05_bug_reporting/01_bugon/mybugondriver.c
     :language: c
     :linenos:
 
 ``file``: Makefile
 ~~~~~~~~~~~~~~~~~~
-.. literalinclude:: code/05_bug_reporting/bug_on/Makefile
-    :language: c
+.. literalinclude:: code/05_bug_reporting/01_bugon/Makefile
+    :language: make
     :linenos:

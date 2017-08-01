@@ -9,7 +9,7 @@
 #include <asm/uaccess.h>
 #include <asm/types.h>
 
-#include "myproc.h"
+#define MY_PROC_ENTRY "my_bugon_driver"
 
 // #define DATA "Hello World People !!!"
 
@@ -19,45 +19,45 @@ char *msg = NULL;
 #define DATA_SIZE 1024 // We can keep 1024 bytes of data with us.
 
 /*
- * Function to write to the proc. Here we free the old data, and allocate new space and copy the data to 
+ * Function to write to the proc. Here we free the old data, and allocate new space and copy the data to
  * that newly allocated area.
  */
 
+#define MY_BUG_ON 1
+#define MY_BUG 2
+#define MY_DUMPSTACK 3
+#define MY_PANIC 4
+static int param = 100;
 static ssize_t my_proc_write(struct file *filp, const char __user * buffer, size_t count, loff_t *pos)
 {
-    int i;
-    char *data = PDE_DATA(file_inode(filp));
+	char *str;
+	str = kmalloc((size_t) count, GFP_KERNEL);
+	if (copy_from_user(str, buffer, count)) {
+		kfree(str);
+		return -EFAULT;
+	}
+	sscanf(str, "%d", &param);
+	pr_info("param has been set to %d\n", param);
+	kfree(str);
 
-    if (count > DATA_SIZE) {
-        return -EFAULT;
-    }
-
-    printk(KERN_INFO "Printing the data passed.");
-    
-    for (i=0; i < count; i++) {
-        printk(KERN_INFO "%d . %c", i, buffer[i]);
-    }
-
-    printk(KERN_INFO "Writing to proc");
-
-
-    if (copy_from_user(data, buffer, count)) {
-        return -EFAULT;
-    }
-
-    printk(KERN_INFO "msg has been set to %s", msg);
-    printk(KERN_INFO "Message is ");
-    
-    for (i=0; i < count; i++) {
-        printk(KERN_INFO "\n %d . %c", i, msg[i]);
-    }
-    *pos = (int) count;
-    len = count;
-
-    return count;
+	switch (param) {
+	case MY_BUG_ON:
+		BUG_ON(param);
+		break;
+	case MY_BUG:
+		BUG();
+		break;
+	case MY_DUMPSTACK:
+		dump_stack();
+		break;
+	case MY_PANIC:
+		panic("I am panicking, Why? -- you told so");
+		break;
+	}
+	return count;
 }
 
-ssize_t read_proc(struct file *filp,char *buf,size_t count, loff_t *offp ) 
+ssize_t my_proc_read(struct file *filp,char *buf,size_t count, loff_t *offp )
 {
     int err;
     char *data = PDE_DATA(file_inode(filp));
@@ -65,7 +65,7 @@ ssize_t read_proc(struct file *filp,char *buf,size_t count, loff_t *offp )
     if ((int) (*offp) > len) {
         return 0;
     }
-    printk(KERN_INFO "Reading the proc entry");
+    printk(KERN_INFO "Reading the proc entry, len of the file is %d", len);
 
     if(!(data)) {
         printk(KERN_INFO "NULL DATA");
@@ -80,10 +80,11 @@ ssize_t read_proc(struct file *filp,char *buf,size_t count, loff_t *offp )
     }
 
     count = len + 1; // +1 to read the \0
-    err = copy_to_user(buf, data, count+1); // +1 for \0
+    err = copy_to_user(buf, data, count); // +1 for \0
+    printk(KERN_INFO "Read data : %s", buf);
     *offp = count;
 
-    if (err) {      
+    if (err) {
         printk(KERN_INFO "Error in copying data.");
     } else {
         printk(KERN_INFO "Successfully copied data.");
@@ -93,7 +94,7 @@ ssize_t read_proc(struct file *filp,char *buf,size_t count, loff_t *offp )
 }
 
 struct file_operations proc_fops = {
-    .read = read_proc,
+    .read = my_proc_read,
     .write = my_proc_write,
 };
 
@@ -102,7 +103,7 @@ int create_new_proc_entry(void) {
     char *DATA = "Hello People";
     len = strlen(DATA);
     msg = kmalloc((size_t) DATA_SIZE, GFP_KERNEL); // +1 for \0
-    
+
     if (msg != NULL) {
         printk(KERN_INFO "Allocated memory for msg");
     } else {
@@ -134,7 +135,7 @@ void proc_cleanup(void) {
     remove_proc_entry(MY_PROC_ENTRY, NULL);
 }
 
-MODULE_LICENSE("GPL"); 
+MODULE_LICENSE("GPL");
 module_init(proc_init);
 module_exit(proc_cleanup);
 
