@@ -25,19 +25,19 @@ Character Device driver and ioctls
 
 ``file``: chardev.c
 ~~~~~~~~~~~~~~~~~~~
-.. literalinclude:: code/10_device_drivers/chardev/kernel/chardev.c
+.. literalinclude:: code/10_device_drivers/01_chardev/kernel/chardev.c
     :language: c
     :linenos:
 
 ``file``: Makefile
 ~~~~~~~~~~~~~~~~~~
-.. literalinclude:: code/10_device_drivers/chardev/kernel/Makefile
+.. literalinclude:: code/10_device_drivers/01_chardev/kernel/Makefile
     :language: c
     :linenos:
 
 ``file``: ioctl.c
 ~~~~~~~~~~~~~~~~~
-.. literalinclude:: code/10_device_drivers/chardev/user/ioctl.c
+.. literalinclude:: code/10_device_drivers/01_chardev/user/ioctl.c
     :language: c
     :linenos:
 

@@ -6,4 +6,4 @@
 
 make clean
 make html
-google-chrome _build/html/index.html &
+# google-chrome _build/html/index.html &

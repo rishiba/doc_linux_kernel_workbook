@@ -210,9 +210,7 @@ static long unlocked_device_ioctl( struct file *file, unsigned int cmd, unsigned
       return 0;
 
    default:
-      printk(KERN_INFO
-             "I do not know what to do, you have passed such value, %d is the value",
-             cmd);
+      printk(KERN_INFO "Unsupported command. Command is %d", cmd);
       return -1;
    }
    return 0;

@@ -35,11 +35,13 @@ This book will deal with the folowing topics.
 * Proc Interface
 * Data Strucutures available in the Kernel
 * Character Device Drivers
-* Other good stuff
 
 The section has many ``Hands-On`` exercises which will enable you to learn
 how to write code for kernel modules, and make changes to the linux kernel.
 This section is very essential for getting a good feel of kernel
 programming.
+
+Note that the book is entirely not my work, I have taken references from a lot
+of documents and articles from the open source community.
 
 Happy Hacking !!

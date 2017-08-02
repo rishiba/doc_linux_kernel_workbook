@@ -21,8 +21,6 @@ Linux Kernel Workbook
     Kernel Assignments          <doc/08_kernel_assignments.rst>
     Making Changes to Kernel    <doc/09_making_changes_to_kernel.rst>
     Device Drivers              <doc/10_device_drivers.rst>
-    Kernel Threads              <doc/11_kernel_threads.rst>
-    Kernel Synchronization      <doc/12_kernel_synchronization.rst>
 
 
 .. todolist:: 

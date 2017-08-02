@@ -63,3 +63,21 @@ Proc entry to read and write data to it
 .. literalinclude:: code/06_proc/01_read_write_proc/Makefile
     :linenos: 
     :language: make
+
+
+*   Let us first insert the module by running ``make insert``
+
+*   Let us print the original value.
+
+::
+
+     cat /proc/my_proc_entry_write 
+     Hello People$
+
+*   Let us now write on the original value.
+
+::
+
+     # echo "I am writing this" > /proc/my_proc_entry_write 
+     # cat /proc/my_proc_entry_write 
+     I am writing this
