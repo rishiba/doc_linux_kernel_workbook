@@ -15,8 +15,8 @@ Linux Kernel Workbook
     Kernel Compilation          <doc/02_kernel_compilation.rst>
     Kernel Modules              <doc/03_kernel_modules.rst>
     Exporting Symbols           <doc/04_exporting_symbols.rst>
-    Kernel Bug Reporting        <doc/05_kernel_bug_reporting.rst>
-    Proc Interface              <doc/06_proc_interface.rst>
+    Proc Interface              <doc/05_proc_interface.rst>
+    Kernel Bug Reporting        <doc/06_kernel_bug_reporting.rst>
     Kernel Data Structures      <doc/07_kernel_data_stuctures.rst>
     Kernel Assignments          <doc/08_kernel_assignments.rst>
     Making Changes to Kernel    <doc/09_making_changes_to_kernel.rst>

@@ -8,7 +8,8 @@ Device Drivers
 * They usually provide the interrupt handling required for any necessary asynchronous time-dependent
 
 Device Drivers Types
---------------------
+====================
+
 * Character Device Drivers
 * Operate on characters as basic unit of input and output
 * Accessed in sequential and non-random manner

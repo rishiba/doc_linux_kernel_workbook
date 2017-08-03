@@ -1,5 +1,7 @@
-// Module to make a read entry in the proc file system.
-// Module to write a command line calculator
+/*
+ * Module to create a proc entry. The user can read and write to the proc entry.
+ */
+
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/proc_fs.h>
@@ -9,18 +11,21 @@
 #include <asm/uaccess.h>
 #include <asm/types.h>
 
-#include "myproc.h"
-
-// #define DATA "Hello World People !!!"
+#define DATA_SIZE 1024 // We can keep 1024 bytes of data with us.
+#define MY_PROC_ENTRY "my_proc_entry_write"
+#define PROC_FULL_PATH "/proc/my_proc_entry_write"
 
 struct proc_dir_entry *proc;
 int len;
 char *msg = NULL;
-#define DATA_SIZE 1024 // We can keep 1024 bytes of data with us.
 
 /*
- * Function to write to the proc. Here we free the old data, and allocate new space and copy the data to
- * that newly allocated area.
+ * Function to write to the proc. Here we free get the new value from buffer,
+ * count from the buffer and then overwrite the data in our file.
+ *
+ * Note that - you can have any other implementation as well for this, all you have to
+ * ensure that you comply with the expectations of the write() system calls
+ * like filling in the buffer, and returning the numbers of character written.
  */
 
 static ssize_t my_proc_write(struct file *filp, const char __user * buffer, size_t count, loff_t *pos)
@@ -32,14 +37,12 @@ static ssize_t my_proc_write(struct file *filp, const char __user * buffer, size
         return -EFAULT;
     }
 
-    printk(KERN_INFO "Printing the data passed. Count is %d", count);
-
+    printk(KERN_INFO "Printing the data passed. Count is %lu", (size_t) count);
     for (i=0; i < count; i++) {
         printk(KERN_INFO "Index: %d . Character: %c Ascii: %d", i, buffer[i], buffer[i]);
     }
 
     printk(KERN_INFO "Writing to proc");
-
     if (copy_from_user(data, buffer, count)) {
         return -EFAULT;
     }
@@ -48,17 +51,22 @@ static ssize_t my_proc_write(struct file *filp, const char __user * buffer, size
 
     printk(KERN_INFO "msg has been set to %s", msg);
     printk(KERN_INFO "Message is: ");
-
     for (i=0; i < count; i++) {
         printk(KERN_INFO "\n Index: %d . Character: %c", i, msg[i]);
     }
+
     *pos = (int) count;
     len = count-1;
 
     return count;
 }
 
-ssize_t my_proc_read(struct file *filp,char *buf,size_t count, loff_t *offp )
+/*
+ * Function to read the proc entry, here we copy the data from our proc entry 
+ * to the buffer passed.
+ */
+
+ssize_t my_proc_read(struct file *filp,char *buf, size_t count, loff_t *offp )
 {
     int err;
     char *data = PDE_DATA(file_inode(filp));
@@ -66,8 +74,8 @@ ssize_t my_proc_read(struct file *filp,char *buf,size_t count, loff_t *offp )
     if ((int) (*offp) > len) {
         return 0;
     }
-    printk(KERN_INFO "Reading the proc entry, len of the file is %d", len);
 
+    printk(KERN_INFO "Reading the proc entry, len of the file is %d", len);
     if(!(data)) {
         printk(KERN_INFO "NULL DATA");
         return 0;
@@ -94,10 +102,30 @@ ssize_t my_proc_read(struct file *filp,char *buf,size_t count, loff_t *offp )
     return count;
 }
 
+
+/*
+ * The file_operations structure. This is the glue layer which associates the
+ * proc entry to the read and write operations.
+ */
 struct file_operations proc_fops = {
     .read = my_proc_read,
     .write = my_proc_write,
 };
+
+
+/*
+ * This function will create the proc entry. This function will allocate some
+ * data where the data will be written incase of a write to the proc entry. The
+ * same memory will be used to serve the reads.  * Initially the function fills
+ * the data with DATA which has "Hello People".
+
+ * The important function to see here is the proc_create_data, this function
+ * will take the proc entry name and create it with the given permissions
+ * (0666). We also need to pass the file_operations structure which has the
+ * function pointers to the functions which needs to be called when read or
+ * write is called on the file. The last argument has the pointer to the data
+ * associated with the file.
+ */
 
 int create_new_proc_entry(void) {
     int i;
@@ -125,6 +153,10 @@ int create_new_proc_entry(void) {
     return -1;
 }
 
+
+/* The init function of the module. Does nothing other than calling the
+ * create_new_proc_entry. */
+
 int proc_init (void) {
     if (create_new_proc_entry()) {
         return -1;
@@ -132,6 +164,7 @@ int proc_init (void) {
     return 0;
 }
 
+/* Function to remove the proc entry.  Call this when the module unloads. */
 void proc_cleanup(void) {
     remove_proc_entry(MY_PROC_ENTRY, NULL);
 }
@@ -139,4 +172,3 @@ void proc_cleanup(void) {
 MODULE_LICENSE("GPL");
 module_init(proc_init);
 module_exit(proc_cleanup);
-

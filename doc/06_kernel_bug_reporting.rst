@@ -2,21 +2,29 @@
 Kernel's Bug Reporting
 ######################
 
-* Kernel has built-in functions/macros for BUGS
-* BUG(), BUG_ON(), dump_stack() and panic() can be used in your code to report error conditions.
+*   Kernel has built-in functions/macros for BUGS
+*   BUG(), BUG_ON(), dump_stack() and panic() can be used in your code to report error conditions.
+*   For more details on these function read the chapter ``Debugging`` in the book ``Linux Kernel Development, 3rd Edition, Robert love``. 
+*   This chapter will give you example with the proc interface on how to use the debugging facilities given in the kernel.
 
 BUG(), BUG_ON(), dump_stack(), panic() example
-----------------------------------------------
+==============================================
+
+
 
 .. literalinclude:: code/05_bug_reporting/01_bugon/mybugondriver.c
     :language: c
     :linenos:
 
 Makefile
-~~~~~~~~~
+=========
+
 .. literalinclude:: code/05_bug_reporting/01_bugon/Makefile
     :language: make
     :linenos:
+
+Running the code
+================
 
 To run the code you will have to write to the ``proc`` entry. Based on the value written the system will behave differently.
 
